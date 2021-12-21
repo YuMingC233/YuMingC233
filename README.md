@@ -1,0 +1,5 @@
+- 👋 Hi, I’m @YuMingC233
+- 👀 I’m interested in program,Video Game,Music,Visual Novel and meme.
+- 🌱 I’m currently learning Python for web and script.
+- 💞️ I’m looking to collaborate on Java web app.
+- 📫 How to reach me?Just send email To: YuMingC233@gmail.com
