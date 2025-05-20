@@ -2,4 +2,4 @@
 - 👀 I’m interested in program, Video Game, Music and meme.
 - 🌱 I'm currently learning flutter for developing cross-end apps.
 - 💞️ I would like to collaborate on developing useful AI applications.
-- 📫 How to reach me?Just send email To: YuMingC233@gmail.com
+- 📫 How to reach me?Just send email To: ConnorWhite0921@163.com
