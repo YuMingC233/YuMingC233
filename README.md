@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @YuMingC233
-- 👀 I’m interested in program,Video Game,Music,Visual Novel and meme.
-- 🌱 I’m currently learning Python for web and script.
-- 💞️ I’m looking to collaborate on Java web app.
+- 👀 I’m interested in program, Video Game, Music and meme.
+- 🌱 I'm currently learning flutter for developing cross-end apps.
+- 💞️ I would like to collaborate on developing useful AI applications.
 - 📫 How to reach me?Just send email To: YuMingC233@gmail.com
