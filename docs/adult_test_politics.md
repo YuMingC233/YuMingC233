@@ -71,11 +71,7 @@
 
 ## 量变和质变的辨证关系
 1. 量变是质变的必要准备
-2. 质变是量变的必然结果
-pub unsafe fn set_clipboard_text_and_html(text: &str, _html: &str) -> Result<(), String> {
-    let mut clipboard = arboard::Clipboard::new().map_err(|e| e.to_string())?;
-    clipboard.set_text(text).map_err(|e| e.to_string())
-}，并为新的量变开辟道路
+2. 质变是量变的必然结果，并为新的量变开辟道路
 3. 量变和质变是相互渗透的
 
 ## 唯物辩证法是客观辩证法与主观辩证法的统一

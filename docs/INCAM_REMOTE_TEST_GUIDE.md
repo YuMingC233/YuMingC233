@@ -54,8 +54,7 @@ cp <Genesis.pm路径> /mnt/incamhyx/lib/
 ### 步骤3: 确认网络可达
 
 确保你的 Linux 机器能访问 Incam 服务器的 TCP 端口：
-- Incam 服务器 IP: 通常是 `192.9.100.xxx` (参考 README.md 中的 Host 字段)
-<!-- 192.9.100.87 -->
+- Incam 服务器 IP: 通常是 `192.9.xxx.xxx` (参考 README.md 中的 Host 字段)
 - 防火墙需放行 Genesis 服务端口
 
 ### 步骤4: 准备测试 Job
@@ -70,7 +69,7 @@ cp <Genesis.pm路径> /mnt/incamhyx/lib/
 
 | 需要的信息 | 示例 |
 |-----------|------|
-| Incam 服务器 IP | `192.9.100.87` |
+| Incam 服务器 IP | `192.9.xxx.xxx` |
 | Genesis 服务端口 | `56773`|
 | Genesis.pm 本地路径 | `/mnt/incamhyx/lib/Genesis.pm` |
 | Genesis.pl 本地路径 | `/mnt/incamhyx/scripts/local-coding/lib/eall/all/perl/Genesis.pl` |
@@ -87,7 +86,7 @@ use Test::More;
 use lib '/mnt/incamhyx/lib';
 use Genesis;
 
-my $host = '192.9.100.222';   # 你提供的 IP
+my $host = '192.9.xxx.xxx';   # 你提供的 IP
 my $f = new Genesis($host);
 
 # 设置环境变量

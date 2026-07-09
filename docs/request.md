@@ -1,12 +1,4 @@
 # request.md
-
-mi
-123456
-
-umm1b07fr2@yahoohh.asia
-tm_713e4f9e472e3a6b3d87978a0cddf1cd9754ce1e398ef98e
-
-
 1. 监控电磁热熔靶标是否被削   
 目的: 	提高制作检查效率   
 内容: 	电磁热熔靶标不可以削，削了会影响热熔效果   
