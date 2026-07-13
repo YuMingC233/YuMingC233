@@ -10,6 +10,7 @@
   <a href="https://juejin.cn/user/759086764538045">Juejin</a> ·
   <a href="https://www.zhihu.com/people/yu-ming-da-da">Zhihu</a> ·
   <a href="https://leetcode.cn/u/yumingc233/">LeetCode</a>
+  <a href="https://bilibili.com/user/yumingc233/">Bilibili</a>
 </p>
 
 ## About
