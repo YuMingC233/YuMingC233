@@ -1,5 +1,8 @@
 # request.md
-1. 监控电磁热熔靶标是否被削   
+1. 监控电磁热熔靶标是否被削  
+
+！！！ 需要接入job app kps项目中
+
 目的: 	提高制作检查效率   
 内容: 	电磁热熔靶标不可以削，削了会影响热熔效果   
 
@@ -392,5 +395,36 @@ bbox:
 = <======> =
 ============
 
-3. 
+3. 制作检查确认时增加检查单元、套装的PTH孔与镭射孔首尾层（按孔层名）必须有铜，中间可以 无铜。即孔从a→b,第a+1~b-1层可以无铜，第a和b层必须有铜。
 
+已知一个Job内，存在prodt00（通常命名规则为范围，如1n,2n-1,3n-2，根据job的总层数决定n的取值，如果为8层板，则为18,27,36）,prodm00（通常命名规则为数字00为连号，如12,23,34，代表下面描述的层数）两种drill layer，排除掉这两种layer名称后有+1的layer之后，需要和满足特定规则的int、comp和solder三种覆铜层进行比较，具体规则如下：
+1. 程序需要满足如果prodt和prodm层中都带有数字1的层，则和comp层进行覆盖比较，如果comp层没有覆盖到prodt或prodm的任意一个layer中的任意一个非Non_Plated的孔，则弹出报警并报告没有被铜覆盖的层。
+2. 如果prodt和prodm层中都带有数字x的层，则和对应nint层（这里的x是非n以及1的数字）进行覆盖比较，规则同上
+3. 如果prodt和prodm层中都带有数字n的层，则和对应solder层进行覆盖比较，规则同上
+比较代码如下：
+COM display_layer,name=prodm12,display=no
+COM display_layer,name=prodm12,display=yes
+COM work_layer,name=prodm12
+COM reset_filter_criteria,filter_name=,criteria=all
+COM set_filter_type,filter_name=,lines=yes,pads=yes,surfaces=yes,arcs=yes,text=yes
+COM set_filter_polarity,filter_name=,positive=yes,negative=yes
+COM reset_filter_criteria,filter_name=,criteria=profile
+COM reset_filter_criteria,filter_name=popup,criteria=inc_attr
+COM reset_filter_criteria,filter_name=popup,criteria=exc_attr
+# 筛选非non_plated的孔
+COM set_filter_attributes,filter_name=popup,exclude_attributes=yes,condition=yes,attribute=.drill,min_int_val=0,max_int_val=0,min_float_val=0,max_float_val=0,option=non_plated,text=
+COM set_filter_and_or_logic,filter_name=popup,criteria=exc_attr,logic=and
+COM set_filter_symbols,filter_name=,exclude_symbols=no,symbols=
+COM set_filter_symbols,filter_name=,exclude_symbols=yes,symbols=
+COM reset_filter_criteria,filter_name=,criteria=text
+COM reset_filter_criteria,filter_name=,criteria=dcode
+COM reset_filter_criteria,filter_name=,criteria=net
+COM set_filter_length
+COM set_filter_angle
+COM adv_filter_reset
+COM adv_filter_set,filter_name=popup,active=no,limit_box=no,bound_box=no,srf_values=no,srf_area=no,mirror=any,ccw_rotations=
+COM reset_filter_criteria,filter_name=ref_select,criteria=inc_attr
+# 因为prodm12包含1、2层，因此筛选comp,2int层
+COM sel_ref_feat,layers=comp\;2int,use=filter,mode=disjoint,pads_as=shape,f_types=line\;pad\;surface\;arc\;text,polarity=positive\;negative,include_syms=,exclude_syms=
+===
+请根据我上面所说的需求，编写一个计划，实现 monitor_check_kp3e/film 中新的检测模块
