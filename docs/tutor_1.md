@@ -723,3 +723,71 @@ command = service ssh start
 
 顺便说，你现在的直播方案也要重新考虑了——推流机没了，是打算直接上Mac Mini，还是另有打算？
 
+
+有没有多平台推流的obs推流方案？具体可以怎么做？对网络要求高吗？比如我想推流到抖音、B站、Youtube和kick，具体可以怎么配置？
+
+可以。你这个组合最现实的方案有两种：
+
+| 方案 | OBS 实际上传 | 适合情况 |
+|---|---:|---|
+| 本机多路直推 | 四个平台码率相加 | 你有稳定高上传、想省订阅费 |
+| 云端中转分发 | 只上传一路 | 想稳定、省本机带宽，接受订阅费 |
+
+我更推荐你先按“云端中转”理解，再看网络决定是否改本机直推。
+
+## 方案一：OBS → 云端中转 → 抖音/B站/YouTube/Kick
+
+例如 Restream 这类服务。OBS 只推给 Restream 一路，Restream 再分发给各平台。它支持自定义 RTMP 目标，所以只要抖音、B 站后台给了 RTMP 地址和推流码，也能加进去；但 3 个以上平台及自定义 RTMP 需要付费套餐。 [Restream 自定义 RTMP 说明](https://support.restream.io/en/articles/369436-stream-to-a-custom-rtmp-channel) [套餐限制](https://support.restream.io/en/articles/9127747-can-i-use-restream-for-free-yes)
+
+配置流程：
+
+1. 分别在四个平台开通直播权限，拿到各自的推流地址和推流码。  
+   - YouTube：YouTube Studio → 创建 → 进行直播 → Stream，复制 Server URL 和 Stream Key。 [官方步骤](https://support.google.com/youtube/answer/2907883?hl=en)  
+   - Kick：Creator Dashboard → Channel → Stream URL and Key。 [官方步骤](https://help.kick.com/en/articles/7066931-how-to-stream-on-kick-com)  
+   - B站、抖音：先在各自直播后台或直播伴侣中开播；如果账户开放“OBS/第三方推流”，复制对应 RTMP 地址和推流码。不同账号权限和界面会有差异。  
+2. 在 Restream 添加 YouTube、Kick，并以“Custom RTMP”添加 B站、抖音。
+3. Restream 会给你一组输入地址和推流码。
+4. OBS → 设置 → 直播：填入 Restream 的地址和码，一次开播即可。
+
+优点：你的电脑只编码、上传一次。  
+缺点：多一个服务商和月费；从国内推向境外中转节点的线路必须提前测试稳定性。
+
+## 方案二：OBS 本机四路直推
+
+装 **Aitum Multistream** 或 **Multiple RTMP Outputs** 插件，在 OBS 里为四个平台各加一个 RTMP 输出。前者支持 Windows、macOS、Linux；后者可以复用主输出的编码器，减少 CPU/GPU 编码压力。 [Aitum Multistream](https://obsproject.com/forum/resources/aitum-multistream.1991/) [Multiple RTMP Outputs](https://obsproject.com/forum/resources/multiple-rtmp-outputs-plugin.964/)
+
+每一路填：
+
+```text
+Server：平台给你的 RTMP/RTMPS 地址
+Stream Key：平台给你的推流码
+```
+
+四路都用同一套画面，建议先统一为：
+
+```text
+分辨率：1920 × 1080
+帧率：30 FPS
+编码：H.264（NVENC / AMD AMF / Intel QSV 优先）
+码率控制：CBR
+视频码率：6000 kbps
+关键帧间隔：2 秒
+音频：AAC，48kHz，160 kbps
+```
+
+这套参数对四个平台相对保守、兼容性高。Kick 目前要求 H.264/x264、CBR、1080p 以内、60fps 以内，最高 8000kbps；YouTube 也建议 CBR、2 秒关键帧。 [Kick 官方要求](https://help.kick.com/en/articles/14994318-obs-or-streamlabs-not-connecting-to-kick) [YouTube 编码建议](https://support.google.com/youtube/answer/2853702?hl=en-EN)
+
+## 网络到底要多高？
+
+本机四路直推时，`6000kbps × 4` 就是约 **24Mbps 视频上传**；再算音频、协议开销和波动，实际至少要有 **40Mbps 稳定上行**，我会建议 **50Mbps 以上的真实可持续上行** 才舒服。
+
+如果改成 1080p60、每路 8000kbps，那就是约 32Mbps 视频上传，建议实际稳定上行 60Mbps 以上。
+
+云端中转则只需推一路 6000kbps；准备 **12–15Mbps 稳定上行**即可，但网络质量比测速峰值更重要。YouTube 也明确建议总上传码率保留至少约 20% 余量。 [YouTube 网络建议](https://support.google.com/youtube/answer/2853856?hl=en)
+
+最后几个坑：
+
+- 抖音更偏竖屏，B站/YouTube/Kick 的游戏或桌面内容通常更适合 16:9 横屏；第一版建议统一横屏，别一开始就搞横竖双画面。
+- 四个平台的标题、分区、封面、违禁内容规则是独立的；自定义 RTMP 通常不能由中转平台自动改标题。
+- 推流码等同直播间密码，截图、录屏、发日志时不要露出；泄露就立刻重置。
+- 先分别开“仅自己可见/测试直播”，再一次性四推；OBS 右下角重点看 `Dropped Frames`，只要持续涨就先降码率或改云端中转。
