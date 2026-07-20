@@ -300,3 +300,12 @@
 
 5. `For now, ...`
     Example: `For now, I’ll use the manual method.`
+
+After the revolution, there's reconstruction.
+A reminder that most revolutions suck balls and make things worse,you just remember the good ones.
+And this revolution isn't AI,AI is Just the atomic bomb of a brutal information war that's been raging for decades.
+
+We aren't going to get the World Wars, they were products of the Industrial Revolution.
+They only wanted your body,not your soul.
+The new war demands your inner reality.
+The new war will be weird in all sorts of new ways we can't even imagine yet.
