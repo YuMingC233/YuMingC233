@@ -398,9 +398,9 @@ bbox:
 3. 制作检查确认时增加检查单元、套装的PTH孔与镭射孔首尾层（按孔层名）必须有铜，中间可以 无铜。即孔从a→b,第a+1~b-1层可以无铜，第a和b层必须有铜。
 
 已知一个Job内，存在prodt00（通常命名规则为范围，如1n,2n-1,3n-2，根据job的总层数决定n的取值，如果为8层板，则为18,27,36）,prodm00（通常命名规则为数字00为连号，如12,23,34，代表下面描述的层数）两种drill layer，排除掉这两种layer名称后有+1的layer之后，需要和满足特定规则的int、comp和solder三种覆铜层进行比较，具体规则如下：
-1. 程序需要满足如果prodt和prodm层中都带有数字1的层，则和comp层进行覆盖比较，如果comp层没有覆盖到prodt或prodm的任意一个layer中的任意一个非Non_Plated的孔，则弹出报警并报告没有被铜覆盖的层。
-2. 如果prodt和prodm层中都带有数字x的层，则和对应nint层（这里的x是非n以及1的数字）进行覆盖比较，规则同上
-3. 如果prodt和prodm层中都带有数字n的层，则和对应solder层进行覆盖比较，规则同上
+    1. 程序需要满足如果prodt和prodm层中都带有数字1的层，则和comp层进行覆盖比较，如果comp层没有覆盖到prodt或prodm的任意一个layer中的任意一个非Non_Plated的孔，则弹出报警并报告没有被铜覆盖的层。
+    2. 如果prodt和prodm层中都带有数字x的层，则和对应nint层（这里的x是非n以及1的数字）进行覆盖比较，规则同上
+    3. 如果prodt和prodm层中都带有数字n的层，则和对应solder层进行覆盖比较，规则同上
 比较代码如下：
 COM display_layer,name=prodm12,display=no
 COM display_layer,name=prodm12,display=yes
@@ -428,3 +428,98 @@ COM reset_filter_criteria,filter_name=ref_select,criteria=inc_attr
 COM sel_ref_feat,layers=comp\;2int,use=filter,mode=disjoint,pads_as=shape,f_types=line\;pad\;surface\;arc\;text,polarity=positive\;negative,include_syms=,exclude_syms=
 ===
 请根据我上面所说的需求，编写一个计划，实现 monitor_check_kp3e/film 中新的检测模块
+
+4. 修改内层板边制作程序
+内层厚铜制板介质厚度理论计算规范
+一、 背景及目的
+针对≥2OZ的厚铜core，压板后出现介质厚度偏厚或偏薄问题，影响品质，需规范此类厚铜CORE制板的介质厚度计算规范。
+二、规范要求
+1．适用范围：内层CORE铜厚为≥2OZ制板。
+2．介质厚度计算公式：
+    H = Χ －h×(1－a1%) －h×(1－a2%)
+    备注：H为两面均为内层CORE的介质厚度
+    X为该层半固化片的理论厚度；
+    h为棕化后铜厚，2OZ按2.59mil，3OZ按3.89 mil
+    a1、a2为对应的两面单元套装铜面密度（含锣刀位）；
+    如套装面积小于5"X 5"的需计算至少3个套装面积的铜密度；
+    如套装面积等于或大于5"X 5"的只计算1个套装的铜密度。
+3. 分离框假铜设计：
+    3.1分离框假铜的铜密度要和单元区铜密度匹配，差异控制在5%以内；
+    3.2 假铜按方块铺铜设计，边长50-100mil，间距10-20mil，边长和间距可根据3.1的铜密度进行调整；
+    3.3（一供有设计的参考一供的设计）。
+4. 锣刀位及cutout位假铜设计：
+   4.1 所有层锣刀位和及cutout位均需铺假铜，避免化片填胶不良失压空洞；
+   4.2 锣刀位铺全铜假铜，距outline 15mil，树脂通道与分离框对齐;
+   4.3 单元cutout位铺全铜假铜，距outline 15mil。
+
+以下原流程，源程序主要指fill_copper.pl内的程序，其他程序源代码仅起到写法启发作用。
+“所有层”是指？
+A: JOB 的所有内层铜层
+B: 只针对 ≥2 OZ Core 的两个铜面？
+✅ C: 沿用原流程的的Core层识别方法
+
+如果一个 Core 两面分别为 2 OZ 和 1 OZ:
+✅ A: 只改 2 OZ 面 
+B: 两面都改
+
+15 mil 怎么量？
+✅ A: 边缘到outline
+B: 中心到outline
+
+假铜位于 outline 的哪一侧？
+A: 锣刀位/cutout 的空白区域内部
+B: 成品轮廓外侧？
+✅ C: 跟随原圆点假铜的识别流程，一般为套装外侧，大单元的外侧等
+
+outline、锣刀位和 cutout 从哪里识别？
+outline：套装，单元外侧的白色边框往内缩50mil
+锣刀位：两个outline之间的区域
+cutout：孤立的白色边框区域，只在套装set层里有，原程序有判断逻辑，工艺人员指定说是2oz cut 15mil
+
+分离框区域如何定义？
+A: 两个套装之间的整个间隔
+B: 现有 _ex/_fnl 四周的区域？
+✅ C: 手动选择，参照“分离框敷铜”程序，由工艺人员手工选择
+哪些位置必须保留工具孔、靶标、二维码或其他禁止铺铜区？
+源代码程序有相应写法，主要参照30大小，间距8mil
+
+铜密度的计算口径是什么？
+- 分母是单元外框面积、套装矩形面积，还是实际 profile 面积？
+实际 profile 面积，直接调用cooper area工具计算
+- 正负极性、孔、cutout 是否扣除？
+源代码程序有相应写法
+- “含锣刀位”是否表示加完锣刀位假铜后再计算？
+忽略不计
+- 每层分别匹配，还是 Core 两面取平均值？
+每层匹配，单层即可
+
+小于 5" × 5" 时的“至少3个套装”怎么选？
+是取排版中的任意三个、相邻三个、前三个，还是把一个套装面积乘三？如果实际不足三个怎么办？
+任意三个
+不考虑实际不足三个套装的情况
+
+方块尺寸如何自动选择？
+程序可以在边长 50～100 mil、净间距 10～20 mil 中搜索，使密度差最小。需要确认：
+- 优先固定哪个尺寸；
+    不固定，可以由程序自由选择，一切以达到小于5%差异为目标，不考虑其他问题。
+- 达不到 5% 以内时是报警、中止，还是采用最接近结果；
+    采用最接近结果
+- 边缘残缺方块是否允许。
+    允许
+
+树脂通道“与分离框对齐”的验收定义是什么？
+要对齐中心线、宽度和方向，还是只需要连通？请提供通道宽度及参考设计。
+要对齐中心线、宽度和方向，保证与分离框垂直对齐，源程序应该有实现
+
+公式 H 是否也要由程序计算、显示或写回？
+如果要，需要提供 X 的数据来源、铜密度输出位置，以及计算结果的合格范围。否则我会把公式视为工艺背景，只实现假铜设计。
+不做
+
+要加假铜的job: 8v1228
+目标层名为源层名，即直接在原层上进行更改
+
+工艺人员强调源程序（fill_copper.pl）的实现已经比较完善，仅需新增>=2oz的判断条件以及方块选择和自动方块尺寸计算
+
+monitor_check_kp3e/film/CuAreaChk.pm:307
+$f->COM("copper_area,layer1=$lyr,layer2=,drills=yes,drills_source=matrix,thickness=$board_thick,resolution_value=1,x_boxes=1,y_boxes=1,area=yes,x1=$copper_limist_xmin,y1=$copper_limist_ymin,x2=$copper_limist_xmax,y2=$copper_limist_ymax,dist_map=no,f_type=all,out_file=,out_layer=first");
+

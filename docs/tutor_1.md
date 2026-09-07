@@ -90,12 +90,13 @@ ping -I usb0 8.8.8.8
 
 Android 14 加强了权限管控，可能遇到的问题：
 
-| 问题 | 原因 | 解决方案 |
-|------|------|----------|
-| `adb root` 失败 | 非 userdebug 版本 | 需要 Magisk，用 `adb shell` + `su` |
-| `rndis` 接口不出现 | 内核未加载模块 | 执行 `modprobe rndis_host`（Ubuntu端）|
-| 接口出现但无 IP | DHCP 未触发 | 手动 `sudo dhclient usb0` |
-| SELinux 阻止 | Android 14 SELinux 严格 | `adb shell su -c "setenforce 0"`（临时）|
+
+| 问题               | 原因                    | 解决方案                                 |
+| -------------------- | ------------------------- | ------------------------------------------ |
+| `adb root` 失败    | 非 userdebug 版本       | 需要 Magisk，用`adb shell` + `su`        |
+| `rndis` 接口不出现 | 内核未加载模块          | 执行`modprobe rndis_host`（Ubuntu端）    |
+| 接口出现但无 IP    | DHCP 未触发             | 手动`sudo dhclient usb0`                 |
+| SELinux 阻止       | Android 14 SELinux 严格 | `adb shell su -c "setenforce 0"`（临时） |
 
 ---
 
@@ -140,9 +141,7 @@ adb forward tcp:8080 tcp:8080
 
 **总结**：有 Root 的情况下，`adb shell su -c "svc usb setFunctions rndis"` 这一条命令基本就能搞定，Ubuntu 端再 `dhclient usb0` 即可上网。
 
-
 好的修好了多谢，我的英语水平不太好所以就讲回中文了。那么我是否可以在上述获得了手机root权限的情况下，使用adb shell直接操控clash for android打开、关闭、切换节点等操作？
-
 
 # 用 ADB Shell + Root 操控 Clash for Android
 
@@ -157,6 +156,7 @@ Clash for Android 内置了一个 HTTP API（继承自 mihomo/clash 核心），
 ### 1. 先确认 API 已开启
 
 在 Clash for Android 设置里找到：
+
 ```
 外部控制 (External Controller)
 地址：127.0.0.1:9090
@@ -288,12 +288,13 @@ chmod +x switch_node.sh
 
 ## 各方案对比
 
-| 方案 | 稳定性 | 是否需要 Root | 功能完整度 |
-|------|--------|--------------|-----------|
-| RESTful API | ⭐⭐⭐⭐⭐ | 不需要 | 最完整 |
-| AM 命令启停 | ⭐⭐⭐⭐ | 不需要 | 只能启停 |
-| UI 模拟点击 | ⭐⭐ | 不需要 | 有限 |
-| pkill 杀进程 | ⭐⭐⭐ | 需要 | 只能关闭 |
+
+| 方案         | 稳定性     | 是否需要 Root | 功能完整度 |
+| -------------- | ------------ | --------------- | ------------ |
+| RESTful API  | ⭐⭐⭐⭐⭐ | 不需要        | 最完整     |
+| AM 命令启停  | ⭐⭐⭐⭐   | 不需要        | 只能启停   |
+| UI 模拟点击  | ⭐⭐       | 不需要        | 有限       |
+| pkill 杀进程 | ⭐⭐⭐     | 需要          | 只能关闭   |
 
 ---
 
@@ -421,12 +422,13 @@ ibus list-engine | grep pinyin
 
 ## 常见报错处理
 
-| 报错信息 | 原因 | 解决 |
-|----------|------|------|
-| `libpinyin.so not found` | ldconfig 没跑 | `sudo ldconfig` |
-| `configure: error: ibus not found` | 缺少 libibus-dev | `sudo apt install libibus-1.0-dev` |
-| `make: *** No rule to make target` | autoconf 没生成 | 先跑 `./autogen.sh` 再 `./configure` |
-| 安装后看不到输入法 | 缓存未刷新 | `ibus write-cache && ibus restart` |
+
+| 报错信息                           | 原因             | 解决                                |
+| ------------------------------------ | ------------------ | ------------------------------------- |
+| `libpinyin.so not found`           | ldconfig 没跑    | `sudo ldconfig`                     |
+| `configure: error: ibus not found` | 缺少 libibus-dev | `sudo apt install libibus-1.0-dev`  |
+| `make: *** No rule to make target` | autoconf 没生成  | 先跑`./autogen.sh` 再 `./configure` |
+| 安装后看不到输入法                 | 缓存未刷新       | `ibus write-cache && ibus restart`  |
 
 ---
 
@@ -443,8 +445,6 @@ ibus list-engine | grep pinyin
 ---
 
 装完重新登录一次，`Super + Space` 或 `Ctrl + Space` 切换输入法就能用了。
-
-
 
 ```
 我是否可以在上述获得了手机root权限的情况下，使用adb shell直接操控clash for android打开、关闭、切换节点等操作？
@@ -464,9 +464,11 @@ Clash for Android 内置了一个 HTTP API（继承自 mihomo/clash 核心），
 
 在 Clash for Android 设置里找到：
 ```
+
 外部控制 (External Controller)
 地址：127.0.0.1:9090
 密钥：7355608*
+
 ```
 
 ### 2. 用 ADB 做端口转发
@@ -505,6 +507,7 @@ curl "http://127.0.0.1:9090/proxies/节点名称/delay?timeout=2000&url=http://w
 curl http://127.0.0.1:9090/logs \
   -H "Authorization: Bearer $SECRET"
 ```
+
 ```
 这个restful方案如何做到单纯的开启关闭？
 
@@ -555,17 +558,20 @@ sudo service ssh start 2>/dev/null
 Tailscale 是一个基于 WireGuard 的 P2P VPN，家用机和公司机加入同一虚拟网络，**无需公网 IP、无需路由器设置**。
 
 **家用 Windows 11：**
+
 1. 下载安装 [Tailscale for Windows](https://tailscale.com/download)
 2. 用 Google/GitHub 账号登录
 3. 记下分配的虚拟 IP（如 `100.x.x.x`）
 
 **WSL 内也需要加入（可选，直接用 Windows 的 Tailscale IP 即可）：**
+
 ```bash
 # WSL 内可以直接通过 Windows 宿主机的 Tailscale IP 访问
 # 因为 WSL2 和 Windows 共享网络（需要配置端口转发，见下）
 ```
 
 **公司电脑：**
+
 1. 同样安装 Tailscale 并登录同一账号
 2. 直接 SSH 连接家用机的 Tailscale IP
 
@@ -590,6 +596,7 @@ cloudflared tunnel run home-dev
 ```
 
 公司端连接：
+
 ```bash
 # 公司电脑也需装 cloudflared
 ssh -o ProxyCommand="cloudflared access ssh --hostname ssh.yourdomain.com" user@ssh.yourdomain.com
@@ -672,14 +679,14 @@ command = service ssh start
 
 ## 推荐方案对比
 
-| 方案 | 难度 | 费用 | 稳定性 | 适合场景 |
-|------|------|------|--------|----------|
-| **Tailscale** | ⭐ 最低 | 免费 | ⭐⭐⭐⭐⭐ | 强烈推荐首选 |
-| Cloudflare Tunnel | ⭐⭐ | 免费 | ⭐⭐⭐⭐ | 需要自定义域名 |
-| FRP + VPS | ⭐⭐⭐ | VPS费用 | ⭐⭐⭐⭐⭐ | 已有VPS时 |
+
+| 方案              | 难度    | 费用    | 稳定性     | 适合场景       |
+| ------------------- | --------- | --------- | ------------ | ---------------- |
+| **Tailscale**     | ⭐ 最低 | 免费    | ⭐⭐⭐⭐⭐ | 强烈推荐首选   |
+| Cloudflare Tunnel | ⭐⭐    | 免费    | ⭐⭐⭐⭐   | 需要自定义域名 |
+| FRP + VPS         | ⭐⭐⭐  | VPS费用 | ⭐⭐⭐⭐⭐ | 已有VPS时      |
 
 **最简路径：Tailscale + WSL SSH + VS Code Remote SSH**，配置完成后在 VS Code 里装 Remote - SSH 插件，体验和本地开发几乎无差异。
-
 
 好了不用算了，那台笔记本开不了机了，在我清灰换成相变片后回光返照跑了一段时间，结果在我打开steam还是打算更新内部的软件什么的时候，听到啪的一声，电脑就黑屏了，然后就是尝试各种按开关都没反应....这玩意儿收废品都只能卖个100多，值钱点的也就是里头的32g内存，看这情况是不是直接大电流击穿了？
 
@@ -699,13 +706,14 @@ command = service ssh start
 
 ## 能抢救的东西
 
-| 零件 | 状态 | 建议 |
-|------|------|------|
-| **32GB内存** | 大概率完好，内存不怕主板爆 | **优先拆出来卖，¥900** |
-| **硬盘（SSD/HDD）** | 完好，数据应该还在 | 拆出来接USB盒子读数据 |
-| 屏幕 | 看品牌，小众品牌值钱不大 | 可以挂闲鱼，¥100~300 |
-| CPU/GPU | 焊死在主板上，主板坏了基本废 | 放弃 |
-| 电源适配器 | 完好 | 闲鱼挂¥30~80 |
+
+| 零件                | 状态                         | 建议                    |
+| --------------------- | ------------------------------ | ------------------------- |
+| **32GB内存**        | 大概率完好，内存不怕主板爆   | **优先拆出来卖，¥900** |
+| **硬盘（SSD/HDD）** | 完好，数据应该还在           | 拆出来接USB盒子读数据   |
+| 屏幕                | 看品牌，小众品牌值钱不大     | 可以挂闲鱼，¥100~300   |
+| CPU/GPU             | 焊死在主板上，主板坏了基本废 | 放弃                    |
+| 电源适配器          | 完好                         | 闲鱼挂¥30~80           |
 
 ---
 
@@ -723,15 +731,15 @@ command = service ssh start
 
 顺便说，你现在的直播方案也要重新考虑了——推流机没了，是打算直接上Mac Mini，还是另有打算？
 
-
 有没有多平台推流的obs推流方案？具体可以怎么做？对网络要求高吗？比如我想推流到抖音、B站、Youtube和kick，具体可以怎么配置？
 
 可以。你这个组合最现实的方案有两种：
 
-| 方案 | OBS 实际上传 | 适合情况 |
-|---|---:|---|
-| 本机多路直推 | 四个平台码率相加 | 你有稳定高上传、想省订阅费 |
-| 云端中转分发 | 只上传一路 | 想稳定、省本机带宽，接受订阅费 |
+
+| 方案         |     OBS 实际上传 | 适合情况                       |
+| -------------- | -----------------: | -------------------------------- |
+| 本机多路直推 | 四个平台码率相加 | 你有稳定高上传、想省订阅费     |
+| 云端中转分发 |       只上传一路 | 想稳定、省本机带宽，接受订阅费 |
 
 我更推荐你先按“云端中转”理解，再看网络决定是否改本机直推。
 
@@ -741,15 +749,15 @@ command = service ssh start
 
 配置流程：
 
-1. 分别在四个平台开通直播权限，拿到各自的推流地址和推流码。  
-   - YouTube：YouTube Studio → 创建 → 进行直播 → Stream，复制 Server URL 和 Stream Key。 [官方步骤](https://support.google.com/youtube/answer/2907883?hl=en)  
-   - Kick：Creator Dashboard → Channel → Stream URL and Key。 [官方步骤](https://help.kick.com/en/articles/7066931-how-to-stream-on-kick-com)  
-   - B站、抖音：先在各自直播后台或直播伴侣中开播；如果账户开放“OBS/第三方推流”，复制对应 RTMP 地址和推流码。不同账号权限和界面会有差异。  
+1. 分别在四个平台开通直播权限，拿到各自的推流地址和推流码。
+   - YouTube：YouTube Studio → 创建 → 进行直播 → Stream，复制 Server URL 和 Stream Key。 [官方步骤](https://support.google.com/youtube/answer/2907883?hl=en)
+   - Kick：Creator Dashboard → Channel → Stream URL and Key。 [官方步骤](https://help.kick.com/en/articles/7066931-how-to-stream-on-kick-com)
+   - B站、抖音：先在各自直播后台或直播伴侣中开播；如果账户开放“OBS/第三方推流”，复制对应 RTMP 地址和推流码。不同账号权限和界面会有差异。
 2. 在 Restream 添加 YouTube、Kick，并以“Custom RTMP”添加 B站、抖音。
 3. Restream 会给你一组输入地址和推流码。
 4. OBS → 设置 → 直播：填入 Restream 的地址和码，一次开播即可。
 
-优点：你的电脑只编码、上传一次。  
+优点：你的电脑只编码、上传一次。
 缺点：多一个服务商和月费；从国内推向境外中转节点的线路必须提前测试稳定性。
 
 ## 方案二：OBS 本机四路直推
@@ -791,3 +799,9 @@ Stream Key：平台给你的推流码
 - 四个平台的标题、分区、封面、违禁内容规则是独立的；自定义 RTMP 通常不能由中转平台自动改标题。
 - 推流码等同直播间密码，截图、录屏、发日志时不要露出；泄露就立刻重置。
 - 先分别开“仅自己可见/测试直播”，再一次性四推；OBS 右下角重点看 `Dropped Frames`，只要持续涨就先降码率或改云端中转。
+
+
+w3m www.v2ex.com
+
+w3m -cookie 'https://tieba.baidu.com/mo/q---1-3-0--2/m?kw=java'
+w3m -cookie 'https://tieba.baidu.com/mo/q---1-3-0--2/m?kw=sxc'
