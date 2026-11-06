@@ -1,0 +1,138 @@
+scope	desktop_file	name	executable_only
+system	CC Switch.desktop	CC Switch	cc-switch
+system	apifox.desktop	Apifox	apifox
+system	apport-gtk.desktop	Report a problem...	apport-gtk
+system	bluetooth-sendto.desktop	Bluetooth Transfer	bluetooth-sendto
+system	capturer.desktop	Capturer	capturer
+system	code-url-handler.desktop	Visual Studio Code - URL Handler	code
+system	code.desktop	Visual Studio Code	code
+system	com.github.jeromerobert.pdfarranger.desktop	PDF Arranger	pdfarranger
+system	display-im6.q16.desktop	ImageMagick (color depth=q16)	display-im6.q16
+system	fcitx5-configtool.desktop	Fcitx 5 Configuration	fcitx5-configtool
+system	fcitx5-wayland-launcher.desktop	Fcitx 5 Wayland Launcher (Experimental)	fcitx5-wayland-launcher
+system	firefox.desktop	Firefox	firefox
+system	gcr-prompter.desktop	Access Prompt	gcr-prompter
+system	gcr-viewer.desktop	View file	gcr-viewer
+system	geoclue-demo-agent.desktop	Geoclue Demo agent	agent
+system	gkbd-keyboard-display.desktop	Keyboard Layout	gkbd-keyboard-display
+system	gnome-about-panel.desktop	About	gnome-control-center
+system	gnome-applications-panel.desktop	Apps	gnome-control-center
+system	gnome-background-panel.desktop	Appearance	gnome-control-center
+system	gnome-bluetooth-panel.desktop	Bluetooth	gnome-control-center
+system	gnome-color-panel.desktop	Color	gnome-control-center
+system	gnome-datetime-panel.desktop	Date & Time	gnome-control-center
+system	gnome-disk-image-mounter.desktop	Disk Image Mounter	gnome-disk-image-mounter
+system	gnome-disk-image-writer.desktop	Disk Image Writer	gnome-disks
+system	gnome-display-panel.desktop	Displays	gnome-control-center
+system	gnome-initial-setup.desktop	Initial Setup	gnome-initial-setup-wrapper
+system	gnome-keyboard-panel.desktop	Keyboard	gnome-control-center
+system	gnome-language-selector.desktop	Language Support	gnome-language-selector
+system	gnome-mouse-panel.desktop	Mouse & Touchpad	gnome-control-center
+system	gnome-multitasking-panel.desktop	Multitasking	gnome-control-center
+system	gnome-network-panel.desktop	Network	gnome-control-center
+system	gnome-notifications-panel.desktop	Notifications	gnome-control-center
+system	gnome-online-accounts-panel.desktop	Online Accounts	gnome-control-center
+system	gnome-power-panel.desktop	Power	gnome-control-center
+system	gnome-printers-panel.desktop	Printers	gnome-control-center
+system	gnome-privacy-panel.desktop	Privacy & Security	gnome-control-center
+system	gnome-region-panel.desktop	Region & Language	gnome-control-center
+system	gnome-search-panel.desktop	Search	gnome-control-center
+system	gnome-session-properties.desktop	Startup Applications	gnome-session-properties
+system	gnome-sharing-panel.desktop	Sharing	gnome-control-center
+system	gnome-sound-panel.desktop	Sound	gnome-control-center
+system	gnome-system-monitor-kde.desktop	GNOME System Monitor	gnome-system-monitor
+system	gnome-system-panel.desktop	System	gnome-control-center
+system	gnome-ubuntu-panel.desktop	Ubuntu Desktop	gnome-control-center
+system	gnome-universal-access-panel.desktop	Accessibility	gnome-control-center
+system	gnome-users-panel.desktop	Users	gnome-control-center
+system	gnome-wacom-panel.desktop	Wacom Tablet	gnome-control-center
+system	gnome-wifi-panel.desktop	Wi-Fi	gnome-control-center
+system	gnome-wwan-panel.desktop	Mobile Network	gnome-control-center
+system	gparted.desktop	GParted	gparted
+system	hplj1020.desktop	Reactivate HP LaserJet 1018/1020 after reloading paper	hplj10xx_gui.tcl
+system	htop.desktop	Htop	htop
+system	ibus-setup-chewing.desktop	IBus Chewing Preferences	ibus-setup-chewing
+system	ibus-setup-libbopomofo.desktop	IBus LibBopomofo Preferences	ibus-setup-libpinyin
+system	ibus-setup-libpinyin.desktop	IBus LibPinyin Setup	ibus-setup-libpinyin
+system	ibus-setup-m17n.desktop	IBus M17N Setup	ibus-setup-m17n
+system	ibus-setup-table.desktop	IBus Table Setup	ibus-setup-table
+system	im-config.desktop	Input Method	im-config
+system	info.desktop	TeXInfo	info
+system	io.snapcraft.SessionAgent.desktop	Snapd User Session Agent	false
+system	kbd-layout-viewer5.desktop	Keyboard layout viewer	kbd-layout-viewer5
+system	libreoffice-base.desktop	LibreOffice Base	libreoffice
+system	libreoffice-calc.desktop	LibreOffice Calc	libreoffice
+system	libreoffice-draw.desktop	LibreOffice Draw	libreoffice
+system	libreoffice-impress.desktop	LibreOffice Impress	libreoffice
+system	libreoffice-math.desktop	LibreOffice Math	libreoffice
+system	libreoffice-startcenter.desktop	LibreOffice	libreoffice
+system	libreoffice-writer.desktop	LibreOffice Writer	libreoffice
+system	libreoffice-xsltfilter.desktop	LibreOffice XSLT based filters	libreoffice
+system	nautilus-autorun-software.desktop	Run Software	nautilus-autorun-software
+system	openjdk-21-java.desktop	OpenJDK Java 21 Runtime	cautious-launcher
+system	openjdk-8-java.desktop	OpenJDK Java 8 Runtime	cautious-launcher
+system	openjdk-8-policytool.desktop	OpenJDK Java 8 Policy Tool	policytool
+system	org.bleachbit.BleachBit-root.desktop	BleachBit as Administrator	pkexec
+system	org.bleachbit.BleachBit.desktop	BleachBit	bleachbit
+system	org.fcitx.Fcitx5.desktop	Fcitx 5	fcitx5
+system	org.fcitx.fcitx5-config-qt.desktop	Fcitx 5 Configuration	fcitx5-config-qt
+system	org.fcitx.fcitx5-migrator.desktop	Fcitx 5 Migration Wizard	fcitx5-migrator
+system	org.fcitx.fcitx5-qt5-gui-wrapper.desktop	Fcitx 5 Qt5 Gui Wrapper	fcitx5-qt5-gui-wrapper
+system	org.fcitx.fcitx5-qt6-gui-wrapper.desktop	Fcitx 5 Qt6 Gui Wrapper	fcitx5-qt6-gui-wrapper
+system	org.freedesktop.IBus.Panel.Emojier.desktop	Emoji Choice	ibus
+system	org.freedesktop.IBus.Panel.Extension.Gtk3.desktop	Emoji Choice	ibus-extension-gtk3
+system	org.freedesktop.IBus.Panel.Wayland.Gtk3.desktop	IBus Wayland	ibus-ui-gtk3
+system	org.freedesktop.IBus.Setup.desktop	IBus Preferences	ibus-setup
+system	org.freedesktop.Piper.desktop	Piper	piper
+system	org.freedesktop.Xwayland.desktop	Xwayland	(not specified)
+system	org.gnome.Calculator.desktop	Calculator	gnome-calculator
+system	org.gnome.Calendar.desktop	Calendar	gnome-calendar
+system	org.gnome.Characters.desktop	Characters	gnome-characters
+system	org.gnome.DiskUtility.desktop	Disks	gnome-disks
+system	org.gnome.Evince-previewer.desktop	Print Preview	evince-previewer
+system	org.gnome.Evince.desktop	Document Viewer	evince
+system	org.gnome.Evolution-alarm-notify.desktop	Events and Tasks Reminders	evolution-alarm-notify
+system	org.gnome.Logs.desktop	Logs	gnome-logs
+system	org.gnome.Nautilus.desktop	Files	nautilus
+system	org.gnome.OnlineAccounts.OAuth2.desktop	GNOME OAuth2 Handler	goa-oauth2-handler
+system	org.gnome.PowerStats.desktop	Power Statistics	gnome-power-statistics
+system	org.gnome.RemoteDesktop.Handover.desktop	GNOME Remote Desktop Handover Daemon	gnome-remote-desktop-daemon
+system	org.gnome.Settings.desktop	Settings	gnome-control-center
+system	org.gnome.Shell.Extensions.desktop	Extensions	false
+system	org.gnome.Shell.desktop	GNOME Shell	gnome-shell
+system	org.gnome.Sysprof.desktop	Sysprof	sysprof
+system	org.gnome.SystemMonitor.desktop	System Monitor	gnome-system-monitor
+system	org.gnome.Tecla.desktop	Tecla	tecla
+system	org.gnome.Terminal.Preferences.desktop	Terminal Preferences	gnome-terminal
+system	org.gnome.Terminal.desktop	Terminal	gnome-terminal
+system	org.gnome.TextEditor.desktop	Text Editor	gnome-text-editor
+system	org.gnome.Zenity.desktop	Zenity	zenity
+system	org.gnome.baobab.desktop	Disk Usage Analyzer	baobab
+system	org.gnome.clocks.desktop	Clocks	gnome-clocks
+system	org.gnome.eog.desktop	Image Viewer	eog
+system	org.gnome.evolution-data-server.OAuth2-handler.desktop	Evolution Data Server OAuth2 Handler	evolution-oauth2-handler
+system	org.gnome.font-viewer.desktop	Fonts	gnome-font-viewer
+system	org.gnome.seahorse.Application.desktop	Passwords and Keys	seahorse
+system	org.inkscape.Inkscape.desktop	Inkscape	inkscape
+system	org.remmina.Remmina-file.desktop	Remmina Connect	remmina-file-wrapper
+system	org.remmina.Remmina.desktop	Remmina	remmina-file-wrapper
+system	python3.12.desktop	Python (v3.12)	python3.12
+system	remmina-gnome.desktop	remmina-gnome	remmina-gnome
+system	rygel.desktop	Rygel	rygel
+system	snap-handle-link.desktop	Handler for snap:// URIs	snap
+system	software-properties-drivers.desktop	Additional Drivers	software-properties-gtk
+system	software-properties-gtk.desktop	Software & Updates	software-properties-gtk
+system	software-properties-livepatch.desktop	Livepatch	software-properties-gtk
+system	v2raya.desktop	v2rayA Web Panel	xdg-open
+system	vim.desktop	Vim	vim
+system	wetype-ime.desktop	WeType IME Engine	wetype-demo
+system	xdg-desktop-portal-gnome.desktop	Portal	xdg-desktop-portal-gnome
+system	xdg-desktop-portal-gtk.desktop	Portal	xdg-desktop-portal-gtk
+system	yelp.desktop	Help	yelp
+user	capturer.desktop	Capturer	capturer
+user	cc-switch-handler.desktop	CC Switch	cc-switch
+user	claude-code-url-handler.desktop	Claude Code URL Handler	claude
+user	localsend.desktop	LocalSend	sh
+user	obsidian.desktop	Obsidian	sh
+user	snipaste.desktop	Snipaste	sh
+user	tiez.desktop	tiez	sh

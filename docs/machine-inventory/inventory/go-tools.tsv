@@ -1,0 +1,8 @@
+command	module	version
+dnsx	github.com/projectdiscovery/dnsx	v1.2.3
+ffuf	github.com/ffuf/ffuf/v2	v2.1.0
+fyne	fyne.io/tools	v1.7.0
+gobuster	github.com/OJ/gobuster/v3	v3.8.2
+nuclei	github.com/projectdiscovery/nuclei/v3	v3.8.0
+subfinder	github.com/projectdiscovery/subfinder/v2	v2.14.0
+wails	github.com/wailsapp/wails/v2	v2.12.0

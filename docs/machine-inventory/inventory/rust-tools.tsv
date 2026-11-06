@@ -1,0 +1,4 @@
+command	version	manager
+rustc	1.94.0	rustup stable
+cargo	1.94.0	rustup stable
+rg	15.2.0	cargo install

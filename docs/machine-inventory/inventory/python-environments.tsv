@@ -1,0 +1,5 @@
+prefix_under_home	python	conda_package_count	python_distribution_count
+micromamba/envs/default312	3.12.13	179	61
+micromamba/envs/default313	3.13.14	22	218
+micromamba/envs/job-schedule	3.13.14	22	35
+miniforge3	3.13.12	88	66

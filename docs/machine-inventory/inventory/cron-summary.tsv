@@ -1,0 +1,7 @@
+schedule	script_basenames_only
+0 14 * * *	run_oa_backup.sh
+0 17 * * 1-5	run_daily_report.sh
+15 17 * * 1-5	daily_report.py
+30 10 * * 1-5	git_pull_sche.py
+30 10 * * 5	(command omitted; inspect locally)
+30 14 * * 1-5	(command omitted; inspect locally)

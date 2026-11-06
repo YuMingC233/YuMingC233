@@ -1,0 +1,4 @@
+package	version
+boss-agent-cli	1.14.0
+specify-cli	0.8.10.dev0
+tieba-cli	0.1.1

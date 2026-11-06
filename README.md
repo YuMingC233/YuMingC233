@@ -73,6 +73,10 @@ My blog repository for notes, experiments, and things worth writing down after t
 
 `TypeScript` `Python` `Rust` `Shell` `Dart` `JavaScript` `Git` `Linux` `Tauri` `Flutter` `CLI` `Automation`
 
+## Workstation Migration Inventory
+
+[Ubuntu workstation inventory](docs/machine-inventory/README.md): system, custom drivers, installed software, input methods, startup configuration, and migration notes. Last verified: 2026-11-06.
+
 ## What You Will Usually Find Here
 
 - projects that started from an actual inconvenience

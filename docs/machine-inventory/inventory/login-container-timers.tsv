@@ -1,0 +1,4 @@
+instance	wanted_by	delay	runtime_evidence
+default_runner	graphical-session.target	10s	fired in current session
+gitea-runner	graphical-session.target	10s	fired in current session
+hyx-daily-report-server	graphical-session.target	10s	fired in current session

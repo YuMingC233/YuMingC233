@@ -1,0 +1,8 @@
+desktop_file	name	executable_only
+CC Switch.desktop	CC Switch	cc-switch
+capturer.desktop	Capturer	capturer
+org.fcitx.Fcitx5.desktop	Fcitx 5	fcitx5
+remmina-applet.desktop	Remmina panel	remmina
+sh.desktop	Obsidian	sh
+snipaste.desktop	Snipaste	AppImage
+tiez.desktop	tiez	tiez-app
